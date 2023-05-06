@@ -16,8 +16,8 @@ public class EmployeeService {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 	
-	public Employee getemployee(Integer empId) {
-		return employeeRepository.findByempId(empId);
+	public EmployeeResponse getemployee(Integer empId) {
+		return employeeRepository.findByEmployee(empId);
 	}
 	
 	public Employee saveEmployee(Employee emp) {

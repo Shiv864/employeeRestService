@@ -25,10 +25,7 @@ public class EmployeeController {
 	@Autowired
 	EmployeeService employeeService;
 	
-	@RequestMapping("/")
-    public String home(){
-        return "Hello World!";
-    }
+	
 	
 	@PostMapping(value="/addemployee",produces = {MediaType.APPLICATION_JSON_VALUE})
 	public Employee createEmployee(@RequestBody Employee employee) {
@@ -57,10 +54,10 @@ public class EmployeeController {
 	@GetMapping(path="/{empId}",
 			produces= {MediaType.APPLICATION_JSON_VALUE
 					})
-	public ResponseEntity<Employee> getEmployee(@PathVariable String empId) {
-		Employee employee =employeeService.getemployee(Integer.parseInt(empId));
+	public ResponseEntity<EmployeeResponse> getEmployee(@PathVariable String empId) {
+		EmployeeResponse employee =employeeService.getemployee(Integer.parseInt(empId));
 		
-		return new ResponseEntity<Employee>(employee,HttpStatus.OK);
+		return new ResponseEntity<EmployeeResponse>(employee,HttpStatus.OK);
 	}
 	@GetMapping
 	public List<Employee> getHighestSalary(@RequestParam(value ="limit") int limit){

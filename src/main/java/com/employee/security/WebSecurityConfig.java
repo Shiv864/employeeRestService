@@ -10,9 +10,10 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 //import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -27,7 +28,7 @@ import com.employee.security.services.CustomUserDetailServiceImpl;
     // securedEnabled = true,
     // jsr250Enabled = true,
     prePostEnabled = true)
-public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig {//extends WebSecurityConfigurerAdapter {
   @Autowired
   CustomUserDetailServiceImpl userDetailsService;
 
@@ -67,7 +68,7 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
 
   @Bean
   public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
+    return NoOpPasswordEncoder.getInstance();
   }
 
 //  @Override
@@ -82,14 +83,17 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
 //    http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 //  }
   
+  
+  
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http.cors().and().csrf().disable()
         .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-        .authorizeRequests().antMatchers("/employee/auth/**").permitAll()
-        .antMatchers("/employee/test/**").permitAll()
+        .authorizeRequests().antMatchers("/employee/signin").permitAll()
+        
         .anyRequest().authenticated();
+       // .anyRequest().authenticated();
     
     http.authenticationProvider(authenticationProvider());
 

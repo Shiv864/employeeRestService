@@ -35,7 +35,7 @@ import com.employee.security.services.UserDetailsImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/employee/auth")
+@RequestMapping("/employee")
 public class AuthController {
   @Autowired
   AuthenticationManager authenticationManager;

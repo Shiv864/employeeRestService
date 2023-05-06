@@ -16,7 +16,9 @@ public class Employee{
 
 	//private static final long serialVersionUID = -723583058586873479L;
 	
-
+	public Employee() {
+		
+	}
 	
 	public Employee(int empId, String empName, String empAddress){
 		this.empId = empId;
@@ -79,8 +81,9 @@ public class Employee{
 	//(targetEntity = Department.class)
 	
 	//https://stackoverflow.com/questions/24210478/hibernate-more-than-one-row-with-the-given-identifier-was-found-error
-	  //@ManyToOne(fetch = FetchType.LAZY)
-	  @OneToOne(fetch= FetchType.LAZY)
+	//@ManyToOne(fetch = FetchType.LAZY)
+	 // @OneToOne(fetch= FetchType.LAZY)
+	  @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	  @JoinColumn(name = "deptno", nullable = false) 
 	  private Department department;
 	 

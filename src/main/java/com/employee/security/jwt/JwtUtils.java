@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 //import com.bezkoder.springjwt.security.services.UserDetailsImpl;
 import com.employee.security.services.CustomUserDetailServiceImpl;
+import com.employee.security.services.UserDetailsImpl;
+
 import io.jsonwebtoken.*;
 
 @Component
@@ -24,10 +26,10 @@ public class JwtUtils {
 
   public String generateJwtToken(Authentication authentication) {
 
-	  CustomUserDetailServiceImpl userPrincipal = (CustomUserDetailServiceImpl) authentication.getPrincipal();
+	  UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
     return Jwts.builder()
-        .setSubject((userPrincipal.loadUserByUsername(jwtSecret).getUsername()))
+        .setSubject((userPrincipal.getUsername()))
         .setIssuedAt(new Date())
         .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
         .signWith(SignatureAlgorithm.HS512, jwtSecret)
